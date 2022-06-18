@@ -2,3 +2,7 @@ Setup
 - run npm install -g create-react-app
   - globally installs a command to install React apps
   - npm vs yarn (yarn may be a bit quicker)
+
+Hello World
+  - create-react-app hello-world to create the app
+  - delete the src folder to get rid of boiler plate
