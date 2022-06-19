@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-function HelloWorld() {
-  const entity = 'World'
-  return (
-    <>
-      <div>Hello {entity}!</div>
-      <strong>{1 + 1}</strong>
-    </>
+function Hello(props) {
+  return(
+  <>
+    <div>Hello!</div>
+    <div>{props.alternate}</div>
+  </>
   )
 }
 
-ReactDOM.render(<HelloWorld />, document.querySelector('#root'))
+const output = <Hello alternate='Hola'/>
+
+ReactDOM.render(output, document.querySelector('#root'))
