@@ -4,4 +4,8 @@ Setup
   - npm vs yarn (yarn may be a bit quicker)
 
 Chapter 5
+- think in componenets: think of the page, carve out components, name them, organize them in a heirarchial order, write the code
+- for simple heirarchies, can follow top-down (parent then children) or bottom-up (children, then parent), but bottom-up seems to be better for more complex heirarchies as you can unit test, see them in isolation etc
+  - converting a legacy app to React also prefers bottom-up
+- className prop becomes the clas attribute on the DOM node
 -
