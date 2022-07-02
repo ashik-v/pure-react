@@ -1,0 +1,8 @@
+ - Props are like HTML attributes or function arguments
+ - Props allow you to pass data to components
+ - JSX uses className instead of class to specify CSS classes
+ - every componenent in JSX can be self closing
+ - props are passed as an object
+  - this means that you can either accept them and use dot notation or destructure them inside the argument list itself
+ - props are only read-only and can only be passed down to children (react data flow is one-way)
+ -
