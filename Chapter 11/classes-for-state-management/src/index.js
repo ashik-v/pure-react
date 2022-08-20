@@ -40,4 +40,14 @@ function Child({onAction}) {
   return <button onClick={onAction}>Click me!</button>
 }
 
-ReactDOM.render(<CountingParent />, document.querySelector('#root'))
+function Page() {
+  return (
+    <div>
+      <CountingParent />
+      <CountingParent />
+      <CountingParent />
+    </div>
+  )
+}
+
+ReactDOM.render(<Page />, document.querySelector('#root'))
