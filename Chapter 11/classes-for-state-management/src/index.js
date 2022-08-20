@@ -10,8 +10,8 @@ import ReactDOM from 'react-dom'
 // }
 
 class CountingParent extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.state = {
       actionCount: 0,
@@ -22,8 +22,97 @@ class CountingParent extends React.Component {
   }
 
   handleAction(action) {
-    this.setState({
-      actionCount: this.state.actionCount + 1,
+    // async setState - bad; do not use as any further calls to this.state might be stale
+    // this.setState({
+    //   actionCount: this.state.actionCount + 1,
+    // })
+
+    // sequential setState - good when you want to act immediately on the change; the callback is executed immediately
+    // this.setState({actionCount: this.state.actionCount + 1}, function() {
+    // console.log(this.state)
+    // })
+
+    // sequential setState - preferred as it makes sequential state updates run in sequence - props is optional if you don't have any
+    // this.setState((state, props) => {
+    //   return {
+    //     actionCount: state.actionCount + 1
+    //   }
+    // })
+
+
+    // //some weirdness with async setState
+    // console.log(this.state)
+
+    // this.setState({
+    //   actionCount: this.state.actionCount + 1,
+    // })
+
+    // console.log(this.state)
+
+    // this.setState({
+    //   actionCount: this.state.actionCount + 1,
+    // })
+
+    // console.log(this.state)
+
+    // this.setState({
+    //   actionCount: this.state.actionCount + 1,
+    // })
+
+    // console.log(this.state)
+
+    // // setStates become sequential when called with a function
+    // console.log(this.state)
+
+    // this.setState((state, props) => {
+    //   return {
+    //     actionCount: state.actionCount + 1
+    //   }
+    // })
+
+    // console.log(this.state)
+
+    // this.setState((state, props) => {
+    //   return {
+    //     actionCount: state.actionCount + 1
+    //   }
+    // })
+
+    // console.log(this.state)
+
+    // this.setState((state, props) => {
+    //   return {
+    //     actionCount: state.actionCount + 1
+    //   }
+    // })
+
+    // console.log(this.state)
+
+    // // same experiment with the other syntax - not good for multiple changes
+    // this.setState({actionCount: this.state.actionCount + 1}, function() {
+    // console.log(this.state)
+    // })
+
+    // console.log(this.state)
+
+    // this.setState({actionCount: this.state.actionCount + 1}, function() {
+    // console.log(this.state)
+    // })
+
+    // console.log(this.state)
+
+    // this.setState({actionCount: this.state.actionCount + 1}, function() {
+    // console.log(this.state)
+
+    // console.log(this.state)
+    // })
+
+
+    // increase cont by 1 using the preferred syntax
+    this.setState((state, props) => {
+      return {
+        actionCount: state.actionCount + 1
+      }
     })
   }
 
