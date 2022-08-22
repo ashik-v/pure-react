@@ -25,11 +25,18 @@ class Room extends React.Component {
     }
   }
 
+  handleAction = () => {
+    this.setState(
+    {
+      [this.props.id]: !this.state[this.props.id],
+    })
+  }
+
   render() {
     return (
       <div>{this.props.label}
         <div>
-          <LightSwitch />
+          <LightSwitch id={this.props.id} onAction={this.handleAction}/>
           <span>The light is currently {this.state[this.props.id] ? "on" : "off"}</span>
         </div>
       </div>
@@ -37,9 +44,9 @@ class Room extends React.Component {
   }
 }
 
-function LightSwitch() {
+function LightSwitch({id, onAction}) {
   return (
-    <button>Flip light switch</button>
+    <button className={id} onClick={onAction}>Flip light switch</button>
   )
 }
 
