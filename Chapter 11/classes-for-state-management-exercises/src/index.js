@@ -10,7 +10,19 @@ class House extends React.Component {
   }
 
   render() {
-    return <h1>mi casa</h1>
+    return (
+      <>
+        <div>kitchen</div>
+        <span>light {}</span>
+        <button>Flip switch</button>
+        <div>bathroom</div>
+        <button>Flip switch</button>
+        <div>living room</div>
+        <button>Flip switch</button>
+        <div>bedroom</div>
+        <button>Flip switch</button>
+      </>
+    )
   }
 }
 
