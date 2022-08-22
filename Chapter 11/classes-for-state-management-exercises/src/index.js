@@ -1,29 +1,39 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-class House extends React.Component {
+function House() {
+  return (
+    <div>
+      <Room />
+      <Room />
+      <Room />
+      <Room />
+    </div>
+  )
+}
+
+class Room extends React.Component {
   state = {
     kitchen: true,
-    bathroom: false,
-    livingRoom: true,
+    livingRoom: false,
+    bathroom: true,
     bedroom: false,
   }
 
   render() {
     return (
-      <>
-        <div>kitchen</div>
-        <span>light {}</span>
-        <button>Flip switch</button>
-        <div>bathroom</div>
-        <button>Flip switch</button>
-        <div>living room</div>
-        <button>Flip switch</button>
-        <div>bedroom</div>
-        <button>Flip switch</button>
-      </>
+      <div>
+        <LightSwitch />
+        <span>The light is currently __</span>
+      </div>
     )
   }
+}
+
+function LightSwitch() {
+  return (
+    <button>Flip light switch</button>
+  )
 }
 
 ReactDOM.render(<House />, document.querySelector('#root'))
