@@ -8,17 +8,14 @@ class CountingParent extends React.Component {
     this.state = {
       buttonCount: 0,
     }
-
-    this.handleAction = this.handleAction.bind(this)
-    this.reset = this.reset.bind(this)
   }
 
-  handleAction() {
+  handleAction = () => {
     this.setState((state) => { return { buttonCount: state.buttonCount + 1 } })
     this.setState((state) => { return { buttonCount: state.buttonCount + 2 } })
   }
 
-  reset() {
+  reset = () => {
     this.setState(() => { return { buttonCount: 0 } })
   }
 
