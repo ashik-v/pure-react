@@ -16,7 +16,11 @@ function House() {
 
 function Room() {
   return (
-    <div>This is a room</div>
+    <>
+      <div>This is a room</div>
+      <button>Lightswitch</button>
+      <span>The light is _</span>
+    </>
   )
 }
 
