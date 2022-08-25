@@ -22,14 +22,7 @@ class CountingParent extends React.Component {
   }
 
   reset() {
-    this.setState(
-      {
-        buttonCount: 0,
-      },
-      () => {
-        console.log(this.state)
-      }
-    )
+    this.setState(() => { return { buttonCount: 0 } })
   }
 
   render() {
