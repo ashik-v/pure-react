@@ -22,19 +22,27 @@ class Room extends React.Component {
     bathroom: true,
   }
 
+  handleFlick = () => {
+    this.setState((state, props) => {
+      return {
+        [props.id]: !state[props.id],
+      }
+    })
+  }
+
   render() {
     return (
       <>
         <div>This is the {this.props.label}</div>
-        <Lightswitch />
+        <Lightswitch handleFlick={this.handleFlick} />
         <span>The light is {this.state[this.props.id] ? "on" : "off" }</span>
       </>
     )
   }
 }
 
-function Lightswitch() {
-  return <button>Lightswitch</button>
+function Lightswitch({handleFlick}) {
+  return <button onClick={handleFlick}>Lightswitch</button>
 }
 
 root.render(<House />)
