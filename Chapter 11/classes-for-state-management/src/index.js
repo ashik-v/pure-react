@@ -27,6 +27,7 @@ class CountingParent extends React.Component {
         buttonCount: 0,
       }
     )
+    console.log(this.state)
   }
 
   render() {
