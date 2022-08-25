@@ -2,12 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class CountingParent extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      buttonCount: 0,
-    }
+  state = {
+    buttonCount: 0,
   }
 
   handleAction = () => {
