@@ -15,12 +15,19 @@ function House() {
 }
 
 class Room extends React.Component {
+  state = {
+    kitchen: false,
+    livingRoom: true,
+    bedroom: false,
+    bathroom: true,
+  }
+
   render() {
     return (
       <>
         <div>This is the {this.props.label}</div>
         <Lightswitch />
-        <span>The light is _</span>
+        <span>The light is {this.state[this.props.id] ? "on" : "off" }</span>
       </>
     )
   }
