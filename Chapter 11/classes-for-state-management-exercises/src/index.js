@@ -6,22 +6,24 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 function House() {
   return (
     <div>
-      <Room />
-      <Room />
-      <Room />
-      <Room />
+      <Room id="kitchen" label="Kitchen"/>
+      <Room id="livingRoom" label="Living Room"/>
+      <Room id="bedroom" label="Bedroom"/>
+      <Room id="bathoom" label="Bathroom"/>
     </div>
   )
 }
 
-function Room() {
-  return (
-    <>
-      <div>This is a room</div>
-      <Lightswitch />
-      <span>The light is _</span>
-    </>
-  )
+class Room extends React.Component {
+  render() {
+    return (
+      <>
+        <div>This is the {this.props.label}</div>
+        <Lightswitch />
+        <span>The light is _</span>
+      </>
+    )
+  }
 }
 
 function Lightswitch() {
