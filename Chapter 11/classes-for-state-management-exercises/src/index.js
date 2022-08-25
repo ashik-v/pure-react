@@ -18,10 +18,14 @@ function Room() {
   return (
     <>
       <div>This is a room</div>
-      <button>Lightswitch</button>
+      <Lightswitch />
       <span>The light is _</span>
     </>
   )
+}
+
+function Lightswitch() {
+  return <button>Lightswitch</button>
 }
 
 root.render(<House />)
