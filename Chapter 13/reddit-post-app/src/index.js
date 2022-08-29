@@ -2,6 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
+class ErrorCatcher extends React.Component {
+  state = {
+    error: null
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({ error: true, info: info.componentStack })
+  }
+
+  render() {
+    if (this.state.error) {
+      return <div>An error occured: {this.state.info}</div>
+    }
+
+    return this.props.children
+  }
+}
+
 class Reddit extends React.Component {
   state = {
     posts: []
@@ -32,4 +50,8 @@ class Reddit extends React.Component {
   }
 }
 
-ReactDOM.render(<Reddit subreddit="reactjs" />, document.querySelector('#root'))
+ReactDOM.render(
+  <ErrorCatcher>
+    <Reddit subreddit="reactjs" />
+  </ErrorCatcher>,
+  document.querySelector('#root'))
