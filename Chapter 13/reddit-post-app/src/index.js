@@ -22,6 +22,7 @@ class ErrorCatcher extends React.Component {
 
 class Reddit extends React.Component {
   state = {
+    isLoaded: false,
     posts: []
   }
 
@@ -29,14 +30,17 @@ class Reddit extends React.Component {
     axios
       .get(`https://www.reddit.com/r/${this.props.subreddit}.json`)
       .then((res) => {
-          console.log(res)
           const posts = res.data.data.children.map((obj) => obj.data)
-          this.setState({posts})
+          this.setState({isLoaded: true, posts})
       })
   }
 
   render() {
     const { posts } = this.state
+    if (this.state.isLoaded === false) {
+      return <div>Loading Data...</div>
+    }
+
     return (
       <div>
         <h1>{`/r/${this.props.subreddit}`}</h1>
