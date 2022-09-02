@@ -2,17 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class ErrorCatcher extends React.Component {
-  state = { error: null }
+  state = { error: false }
 
   componentDidCatch(error, info) {
     console.log('[componentDidCatch]')
-    console.log('   error:', error)
-    this.setState( { error: info.componentStack } )
+    console.log(' error', error)
+    this.setState({error: info.componentStack})
+
   }
 
   render() {
     if (this.state.error) {
-      return <div>An error occurred {this.state.error}</div>
+      return <div>The error is:{this.state.error}</div>
     }
 
     return this.props.children
@@ -22,72 +23,72 @@ class ErrorCatcher extends React.Component {
 class LifecycleDemo extends React.Component {
   state = { count: 0 }
 
-  constructor(props) {
-    super(props)
+  constructor(){
+    super()
     console.log('[constructor]')
-    console.log('   state:', this.state)
+    console.log(' state already defined', this.state)
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('[getDerivedStateFromProps]')
-    console.log('   nextProps', nextProps)
-    console.log('   prevState', prevState)
+  static getDerivedStateFromProps(prevState, nextProps){
+    console.log('[getDerivedPropsFromState]')
+    console.log(' prevState', prevState)
+    console.log(' nextProps', nextProps)
 
     return null
   }
 
-  componentDidMount() {
+  componentDidMount(){
     console.log('[componentDidMount]')
-    console.log('   Mounted')
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(x, y){
     console.log('[shouldComponentUpdate]')
-    console.log('   nextProps', nextProps)
-    console.log('   nextState', nextState)
+    console.log(' x', x)
+    console.log(' y', y)
 
     return true
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
+  getSnapshotBeforeUpdate(x, y){
     console.log('[getSnapshotBeforeUpdate]')
-    console.log('   prevProps', prevProps)
-    console.log('   prevState', prevState)
+    console.log(' x', x)
+    console.log(' y', y)
 
-    return 'a snapshot'
+    return 'something useful'
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(x, y, snapshot){
     console.log('[componentDidUpdate]')
-    console.log('   prevProps', prevProps)
-    console.log('   prevState', prevState)
-    console.log('   snapshot:', snapshot)
+    console.log(' x', x)
+    console.log(' y', y)
+    console.log(' snapshot', snapshot)
   }
 
   componentWillUnmount() {
     console.log('[componentWillUnmount]')
-    console.log('   Unmounted')
+    console.log(' fin.')
   }
 
   handleClick = () => {
-    this.setState( (state) => { return { count: state.count + 1 } })
+    this.setState({ count: this.state.count + 1 })
   }
 
   throwError = () => {
-    this.setState( (state) => { return { throwError: true } })
+    this.setState( { throwError: true })
   }
 
   render() {
     console.log('[render]')
     if (this.state.throwError) {
-      throw new Error('threw an error!')
+      throw new Error('throwing error')
     }
+
     return (
-      <>
+      <div>
         <div>Current count: {this.state.count}</div>
         <button onClick={this.handleClick}>Increment count</button>
-        <button onClick={this.throwError}>Throw an error</button>
-      </>
+        <button onClick={this.throwError}>Throw error</button>
+      </div>
     )
   }
 }
