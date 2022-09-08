@@ -1,22 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-function OneTimeButton({onClick}) {
-  const [clicked, setClicked] = React.useState(false)
+class OneTimeButton extends React.Component {
+  state = { clicked: false }
 
-  const handleClick = () => {
-    onClick()
-    setClicked(true)
+  onClick = () => {
+    alert('no going back now')
   }
 
-  return (
-    <button onClick={handleClick} disabled={clicked}>
-      You can only click me once
-    </button>
-  )
+  handleClick = () => {
+    this.onClick()
+    this.setState({ clicked: true })
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick} disabled={this.state.clicked}>
+        Click me - but only once
+      </button>
+    )
+  }
 }
 
 ReactDOM.render(
-  <OneTimeButton onClick={() => alert('hi')} />,
+  <OneTimeButton />,
   document.querySelector('#root')
 )
