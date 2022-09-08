@@ -1,15 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-class OneTimeButton extends React.Component {
+class OneTimeButtonClass extends React.Component {
   state = { clicked: false }
 
-  onClick = () => {
-    alert('no going back now')
-  }
-
   handleClick = () => {
-    this.onClick()
+    this.props.onClick()
     this.setState({ clicked: true })
   }
 
@@ -22,11 +18,11 @@ class OneTimeButton extends React.Component {
   }
 }
 
-function OneTimeButtonFunction() {
+function OneTimeButtonFunction({onClick}) {
   const [clicked, setClicked] = React.useState(false)
 
   const handleClick = () => {
-    alert('no going back now')
+    onClick()
     setClicked(true)
   }
 
@@ -38,6 +34,6 @@ function OneTimeButtonFunction() {
 }
 
 ReactDOM.render(
-  <OneTimeButtonFunction />,
+  <OneTimeButtonFunction onClick={() => alert('no going back now')}/>,
   document.querySelector('#root')
 )
