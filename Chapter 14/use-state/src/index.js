@@ -14,7 +14,18 @@ class OneTimeButtonClass extends React.Component {
   }
 }
 
+function OneTimeButtonFunction({onClick}) {
+  const [clicked, setClicked] = React.useState(false)
+
+  const handleClick = () => {
+    setClicked(true)
+    onClick()
+  }
+
+  return <button onClick={handleClick} disabled={clicked}>one time click only</button>
+}
+
 ReactDOM.render(
-  <OneTimeButtonClass onClick={() => alert('no going back now')}/>,
+  <OneTimeButtonFunction onClick={() => alert('no going back now')}/>,
   document.querySelector('#root')
 )
