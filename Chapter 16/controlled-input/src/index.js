@@ -13,7 +13,17 @@ const InputExample = () => {
   return <input type="text" value={text} onChange={handleChange} />
 }
 
+const TrickInput = () => {
+  const [text, setText] = useState('try typing something')
+
+  const handleChange = () => {
+    setText('sike!')
+  }
+
+  return <input type="text" value={text} onChange={handleChange} />
+}
+
 ReactDOM.render(
-  <InputExample />,
+  <TrickInput />,
   document.querySelector('#root')
 )
