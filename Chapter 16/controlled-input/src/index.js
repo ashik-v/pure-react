@@ -23,7 +23,18 @@ const TrickInput = () => {
   return <input type="text" value={text} onChange={handleChange} />
 }
 
+const NoNumbersInput = () => {
+  const [text, setText] = useState('')
+
+  const handleChange = (event) => {
+    const text = event.target.value
+    setText(text.replace(/[0-9]/g, '')) // no flickering!
+  }
+
+  return <input type="text" value={text} onChange={handleChange} />
+}
+
 ReactDOM.render(
-  <TrickInput />,
+  <NoNumbersInput />,
   document.querySelector('#root')
 )
