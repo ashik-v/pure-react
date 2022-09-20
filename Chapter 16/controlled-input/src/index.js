@@ -71,7 +71,24 @@ const RefInput = () => {
   )
 }
 
+const RefInputs = () => {
+  const input1 = useRef()
+  const input2 = useRef()
+
+  const showRef = () => {
+    alert(`${input1.current.value} ${input2.current.value}`)
+  }
+
+  return (
+    <>
+      <input ref={input1} />
+      <input ref={input2} />
+      <button onClick={showRef}>Alert the ref</button>
+    </>
+  )
+}
+
 ReactDOM.render(
-  <RefInput />,
+  <RefInputs />,
   document.querySelector('#root')
 )
