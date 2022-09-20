@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 
 // examples of controlled inputs - controlled as you are responsible for controlling their state
@@ -63,6 +63,19 @@ const UncontrolledListener = () => {
 }
 
 // second, you can use the useRef hook which will give you access to the input's underlying DOM node
+const RefInput = () => {
+  const input = useRef()
+  const showValue = () => {
+    alert(`input contains ${input.current.value}`)
+  }
+
+  return (
+    <div>
+      <input type="text" ref={input} />
+      <button onClick={showValue}>Alert the value</button>
+    </div>
+  )
+}
 
 ReactDOM.render(
   <UncontrolledListener />,
