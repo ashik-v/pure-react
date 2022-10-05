@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react'
+import React, {useReducer, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 
 // reducer in js
@@ -29,7 +29,7 @@ const ReducerCounter = () => {
   const reducer = (state, action) => {
     switch(action) {
       case 'addOne': // the reducer makes it really easy to manage actions
-        return state + 1
+        return state + 1 // the return value is the value of the new state
       case 'removeOne': // you can just add a new one as needed
         return state - 1
       default:
@@ -48,7 +48,56 @@ const ReducerCounter = () => {
   )
 }
 
+const ShoppingList = () => {
+  const reducer = (state, action) => {
+    switch(action.type) {
+      case 'add':
+        return [
+          ...state,
+          {
+            id: state.length,
+            name: action.name
+          }
+        ];
+      case 'remove':
+        return state.filter((_, index) => index !== action.index)
+      case 'clear':
+        return [];
+      default:
+        return state;
+    }
+  }
+
+  const inputRef = useRef();
+  const [items, dispatch] = useReducer(reducer, [])
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // this prevents the form from re-rendering
+    dispatch({
+      type: 'add',
+      name: inputRef.current.value
+    })
+  }
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input ref={inputRef} />
+      </form>
+      <button onClick={() => dispatch({type: 'clear'})}>Clear list</button>
+      <ul>
+        {items.map((item, index) => (
+          <li key={item.id}>
+            {item.name}
+            <button onClick={() => dispatch({type: 'remove', index})}>X</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
 ReactDOM.render(
-  <ReducerCounter />,
+  <ShoppingList />,
   document.querySelector('#root')
 )
