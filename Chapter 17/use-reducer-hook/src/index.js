@@ -77,6 +77,7 @@ const ShoppingList = () => {
       type: 'add',
       name: inputRef.current.value
     })
+    inputRef.current.value = ''; // set the input back to an empty string
   }
 
   return (
