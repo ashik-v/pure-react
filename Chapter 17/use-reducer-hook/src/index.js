@@ -75,23 +75,43 @@ const ShoppingList = () => {
   }
 
   return (
-  <>
-    <div>Shopping List:</div>
-    <form onSubmit={addItem}>
-      <input type="text" ref={inputRef}/>
-    </form>
-    <ul>
-      {items.map((item, index) => (
-        <li id={index}>{item.value}
-          <button onClick={() => dispatch({action: 'delete', value: index})}>X</button>
-        </li>
-      ))}
-    </ul>
-    {items.length > 0 && <button onClick={() => dispatch({action: 'clear'})}>Clear list</button>}
-  </>)
+    <>
+      <div>Shopping List:</div>
+      <form onSubmit={addItem}>
+        <input type="text" ref={inputRef}/>
+      </form>
+      <ul>
+        {items.map((item, index) => (
+          <li id={index}>{item.value}
+            <button onClick={() => dispatch({action: 'delete', value: index})}>X</button>
+          </li>
+        ))}
+      </ul>
+      {items.length > 0 && <button onClick={() => dispatch({action: 'clear'})}>Clear list</button>}
+    </>
+  )
+}
+
+const Room = () => {
+  const LIGHT_SETTINGS = ['off', 'low', 'medium', 'high']
+  const reducer = (lightStage, action) => {
+    if(lightStage === 3) {
+      return 0
+    } else {
+      return lightStage + 1
+    }
+  }
+  const [lightStage, dispatch] = useReducer(reducer, 0)
+
+  return (
+    <>
+      <div>The light is {LIGHT_SETTINGS[lightStage]}</div>
+      <button onClick={() => dispatch()}>Flick lightswitch</button>
+    </>
+  )
 }
 
 ReactDOM.render(
-  <ShoppingList />,
+  <Room />,
   document.querySelector('#root')
 )
