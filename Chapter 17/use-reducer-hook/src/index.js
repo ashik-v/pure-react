@@ -2,100 +2,93 @@ import React, {useReducer, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 
 // reducer in js
-function adder(total, number) {
-  return number + total
-}
+console.log([1, 2, 3].reduce((total, number) => total + number, 0))
 
-console.log([1, 2, 3].reduce(adder, 0))
-
+// state management the conventional way
 const ConventionalCounter = () => {
-
-  const [number, setNumber] = useState(0) // state is defined
-
-  const addOne = () => setNumber(number + 1) // setNumber is a rather simple function that only does one thing to the state
-
-  const removeOne = () => setNumber(number - 1) // if there was another action to be done, you'd need another onClick handler
+  const [count, setCount] =  useState(0)
+  const handleAdd = () => {
+    setCount((count) => count + 1)
+  }
+  const handleSubtract = () => {
+    setCount((count) => count - 1)
+  }
 
   return (
     <>
-      <div>{number}</div>
-      <button onClick={addOne}>Add 1</button>
-      <button onClick={removeOne}>Remove 1</button>
+      Current Count: {count}
+      <div>
+        <button onClick={handleAdd}>Add 1</button>
+        <button onClick={handleSubtract}>Subtract 1</button>
+      </div>
     </>
   )
 }
 
+// state management the useReducer way
 const ReducerCounter = () => {
   const reducer = (state, action) => {
     switch(action) {
-      case 'addOne': // the reducer makes it really easy to manage actions
-        return state + 1 // the return value is the value of the new state
-      case 'removeOne': // you can just add a new one as needed
+      case 'add':
+        return state + 1
+      case 'subtract':
         return state - 1
-      default:
-        return state
     }
   }
 
-  const [number, dispatch] = useReducer(reducer, 0)
-
+  const [count, dispatch] =  useReducer(reducer, 0)
   return (
     <>
-      <div>{number}</div>
-      <button onClick={() => dispatch('addOne')}>Add 1</button>
-      <button onClick={() => dispatch('removeOne')}>Remove 1</button>
+      Current Count: <span>{count}</span>
+      <div>
+        <button onClick={() => dispatch('add')}>Add 1</button>
+        <button onClick={() => dispatch('subtract')}>Subtract 1</button>
+      </div>
     </>
   )
 }
 
 const ShoppingList = () => {
-  const reducer = (state, action) => {
-    switch(action.type) {
+  const reducer = (items, input) => {
+    switch(input.action) {
       case 'add':
         return [
-          ...state,
+          ...items,
           {
-            id: state.length,
-            name: action.name
+            id: items.length,
+            value: input.value
           }
-        ];
-      case 'remove':
-        return state.filter((_, index) => index !== action.index)
+        ]
       case 'clear':
-        return [];
-      default:
-        return state;
+        return []
+      case 'delete':
+        return items.filter((item, index) => index !== input.value)
     }
   }
-
-  const inputRef = useRef();
   const [items, dispatch] = useReducer(reducer, [])
+  const inputRef = useRef()
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // this prevents the form from re-rendering
-    dispatch({
-      type: 'add',
-      name: inputRef.current.value
-    })
-    inputRef.current.value = ''; // set the input back to an empty string
+  const addItem = (event) => {
+    event.preventDefault()
+    dispatch({ action: 'add', value: inputRef.current.value })
+    inputRef.current.value = ''
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input ref={inputRef} />
-      </form>
-      <button onClick={() => dispatch({type: 'clear'})}>Clear list</button>
-      <ul>
-        {items.map((item, index) => (
-          <li key={item.id}>
-            {item.name}
-            <button onClick={() => dispatch({type: 'remove', index})}>X</button>
-          </li>
-        ))}
-      </ul>
-    </>
-  )
+  <>
+    <div>Shopping List:</div>
+    <form onSubmit={addItem}>
+      <input type="text" ref={inputRef}/>
+    </form>
+    <ul>
+      {items.map((item, index) => (
+        <li id={index}>{item.value}
+          <button onClick={() => dispatch({action: 'delete', value: index})}>X</button>
+        </li>
+      ))}
+    </ul>
+    {items.length > 0 && <button onClick={() => dispatch({action: 'clear'})}>Clear list</button>}
+  </>)
 }
 
 ReactDOM.render(
