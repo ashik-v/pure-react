@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 const ShoppingList = () => {
-  const reducer = (input) => {
+  const reducer = (items, input) => {
     switch(input.action) {
       case 'add':
         return [
@@ -14,6 +14,10 @@ const ShoppingList = () => {
             itemName: input.value
           }
         ]
+      case 'delete':
+        return items.filter((item, index) => item.id !== input.value )
+      case 'clear':
+        return []
     }
   }
 
@@ -21,8 +25,10 @@ const ShoppingList = () => {
 
   const itemRef = useRef()
 
-  const addItem = () => {
+  const addItem = (event) => {
+    event.preventDefault()
     dispatch({ action: 'add', value: itemRef.current.value})
+    itemRef.current.value = ''
   }
 
   return (
@@ -31,11 +37,18 @@ const ShoppingList = () => {
       <form onSubmit={addItem} >
         <input ref={itemRef} />
       </form>
-      <ul>
-        {items.map((item, index) => (
-          <li id={index}>{item.label}</li>
-        ))}
-      </ul>
+      {items.length > 0 &&
+        <div>
+          <ul>
+          {items.map((item, index) => (
+            <li key={index}>{item.itemName}
+              <button onClick={() => dispatch({action: 'delete', value: item.id})}>X</button>
+            </li>
+          ))}
+          </ul>
+          <button onClick={() => dispatch({action: 'clear'})}>Clear</button>
+        </div>
+      }
     </>
   )
 }
