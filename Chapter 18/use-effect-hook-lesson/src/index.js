@@ -10,7 +10,18 @@ const LogEffect = () => {
   return <input value={text} onChange={(e) => setText(e.target.value)} /> // controlled input
 }
 
+// if you want to limit when an effect runs, pass in an array of dependencies as the second argument to useEffect
+const LogEffectOnMountOnly = () => {
+  const [text, setText] = useState('')
+  useEffect(
+    () => console.log('the latest value is:', text),
+    [] // empty array means that the effect runs only during the mounting (this behaviour cannot be changed)
+  )
+
+  return <input value={text} onChange={(e) => setText(e.target.value)} />
+}
+
 ReactDOM.render(
-  <LogEffect />,
+  <LogEffectOnMountOnly />,
   document.querySelector('#root')
 )
