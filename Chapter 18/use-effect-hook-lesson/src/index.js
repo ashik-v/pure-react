@@ -90,7 +90,25 @@ const Reddit = ({subreddit}) => {
   )
 }
 
+const App = () => {
+  const [subreddit, setSubreddit] = useState('reactjs')
+  const inputRef = useRef()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setSubreddit(inputRef.current.value)
+  }
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input ref={inputRef} />
+      </form>
+      <Reddit subreddit={subreddit} />
+    </>)
+}
+
 ReactDOM.render(
-  <Reddit subreddit={'reactjs'}/>,
+  <App />,
   document.querySelector('#root')
 )
