@@ -67,12 +67,30 @@ const LogEffectWhenPasswordTerse = () => {
     <>
       <div>guess passcode...</div>
       <input type="text" value={pass.enteredValue} onChange={(e) => setPass({...pass, enteredValue: e.target.value})} />
-      {pass.showSecretMessage && <div>Secret revealed!</div>}
+      {pass.showSecret && <div>Secret revealed!</div>}
     </>
   )
 }
 
+const Reddit = ({subreddit}) => {
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    fetch(`https://www.reddit.com/r/${subreddit}.json`)
+      .then((res) => res.json())
+      .then((json) => setPosts(json.data.children.map((c) => c.data))
+    )
+  })
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+
 ReactDOM.render(
-  <LogEffectWhenPassword />,
+  <Reddit subreddit={'reactjs'}/>,
   document.querySelector('#root')
 )
