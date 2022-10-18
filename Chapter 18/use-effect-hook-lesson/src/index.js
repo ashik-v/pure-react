@@ -91,12 +91,13 @@ const Reddit = ({subreddit}) => {
 }
 
 const App = () => {
-  const [subreddit, setSubreddit] = useState('reactjs')
+  const [state, setState] = useState({ loading: false, subreddit: 'personalfinance'})
   const inputRef = useRef()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSubreddit(inputRef.current.value)
+    setState({ loading: false, subreddit: inputRef.current.value })
+    inputRef.current.value = ''
   }
 
   return (
@@ -104,7 +105,7 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <input ref={inputRef} />
       </form>
-      <Reddit subreddit={subreddit} />
+      {state.loading ? <div>Loading...</div> : <Reddit subreddit={state.subreddit} />}
     </>)
 }
 
